@@ -1,0 +1,164 @@
+[
+  {
+    "id": "ai-agent-reflection",
+    "title": "AI Agent 與 Reflection 是什麼？",
+    "category": "人工智慧",
+    "categoryKey": "ai",
+    "summary": "從回答問題到檢查自己的回答，理解 AI Agent 的基本工作流程。",
+    "tags": ["AI Agent", "Reflection", "LLM"],
+    "readMinutes": 4,
+    "updated": "2026-11-09",
+    "sections": [
+      {
+        "heading": "先理解核心概念",
+        "paragraphs": ["一般聊天模型常在收到問題後直接產生文字，而 AI Agent 會依照目標安排步驟，並且能在適當時機呼叫工具、觀察結果、調整下一個動作。", "Reflection（反思）是一種讓模型檢查並修訂前一版輸出的設計：先產生初稿，再檢查是否有錯誤或遺漏，最後重新產出較完整的版本。"],
+        "bullets": ["產生：模型先根據任務給出初步答案。", "檢查：另一段提示詞或檢查流程指出問題。", "修正：把檢查結果回饋給模型，產生新版答案。"]
+      },
+      {
+        "heading": "用一個生活例子理解",
+        "paragraphs": ["假設使用者想安排一週複習計畫。第一版可能忽略某一科的考試日期；Reflection 步驟會重新比對條件，指出時間衝突，再要求 AI 調整計畫。", "這不代表 AI 一定能找出所有錯誤。如果沒有外部資料或客觀檢查條件，模型也可能重複自己的誤判。"],
+        "bullets": ["適合：文章校對、程式碼檢查、流程規劃。", "需注意：反思迴圈增加運算成本，也不能替代事實查證。"]
+      },
+      {
+        "heading": "複習時可以問自己",
+        "paragraphs": ["Reflection 和只把同一題再問一次有什麼差別？關鍵在於是否設計了明確的檢查標準，並讓檢查結果真的影響下一次輸出。"],
+        "bullets": ["能說出產生 → 檢查 → 修正的三階段。", "能解釋為什麼 Reflection 可能改善品質，但沒有正確性保證。"]
+      }
+    ]
+  },
+  {
+    "id": "rag-basics",
+    "title": "RAG：讓 LLM 查資料再回答",
+    "category": "人工智慧",
+    "categoryKey": "ai",
+    "summary": "搞懂檢索增強生成的流程，以及它為什麼能協助模型回答特定文件的問題。",
+    "tags": ["RAG", "檢索", "向量資料庫"],
+    "readMinutes": 5,
+    "updated": "2026-11-09",
+    "sections": [
+      {
+        "heading": "RAG 的基本想法",
+        "paragraphs": ["RAG 的全名是 Retrieval-Augmented Generation，中文常譯為「檢索增強生成」。它會先從外部知識來源找相關資料，再把找出的片段連同問題交給 LLM 生成回答。", "與重新訓練模型相比，RAG 可以透過更新文件來調整知識來源，不必把每次資料更新都變成模型訓練任務。"],
+        "bullets": ["準備資料：將文件切成合適的段落。", "建立索引：依搜尋方法儲存關鍵字或向量表示。", "檢索片段：找出與問題最相關的內容。", "生成答案：將檢索內容作為上下文交給 LLM。"]
+      },
+      {
+        "heading": "一個校園情境",
+        "paragraphs": ["若要製作課程規定問答機器人，可以先收集課綱與公告，讓使用者提問時，系統先找相符條文，再要求模型依據文件回答。", "當檢索到的內容不完整、過期或不相關時，生成答案仍可能出錯，因此應顯示來源並容許回答「資料不足」。"],
+        "bullets": ["RAG 不等於向量資料庫；檢索也能使用關鍵字搜尋或混合搜尋。", "回答品質同時受文件品質、檢索效果與生成提示影響。"]
+      },
+      {
+        "heading": "複習時可以問自己",
+        "paragraphs": ["如果使用者問了知識庫裡沒有的問題，系統該如何處理？可考慮先檢查檢索信心與來源，再決定是否拒答或提出限制。"],
+        "bullets": ["能畫出資料 → 檢索 → LLM → 回答的流程。", "能解釋 RAG 與微調（fine-tuning）的用途並不相同。"]
+      }
+    ]
+  },
+  {
+    "id": "huffman-coding",
+    "title": "Huffman Coding：為什麼能壓縮？",
+    "category": "資料結構",
+    "categoryKey": "ds",
+    "summary": "利用出現頻率建立前綴碼，認識貪婪演算法如何有效節省編碼長度。",
+    "tags": ["Huffman", "樹", "Greedy"],
+    "readMinutes": 5,
+    "updated": "2026-11-09",
+    "sections": [
+      {
+        "heading": "什麼是 Huffman Coding？",
+        "paragraphs": ["Huffman Coding 是一種無失真壓縮方法。它讓常出現的符號使用較短的二進位碼，較少出現的符號使用較長的碼，降低平均編碼長度。", "Huffman Code 是前綴碼（prefix-free code），代表沒有任何一個完整碼字是另一個碼字的前綴，因此可以從左到右唯一解碼。"],
+        "bullets": ["頻率高 → 通常編碼較短。", "頻率低 → 通常編碼較長。", "編碼結果依相同頻率的合併順序可能不同，但可得到相同的最佳加權路徑長。"]
+      },
+      {
+        "heading": "一步一步建立樹",
+        "paragraphs": ["假設有 A:5、B:2、C:1、D:1。每次選出頻率最小的兩個節點，合併為一個父節點，重複直到只剩根。", "先合併 C 與 D 得到 2；再將新節點 2 與 B 的 2 合併得到 4；最後將 4 與 A 的 5 合併得到 9。從根走向左、右分支時分別標記 0、1，就能取得每個符號的碼。"],
+        "bullets": ["最小堆積（min-heap）可協助反覆取出最小頻率。", "當有 n 個不同符號時，典型堆積實作時間複雜度為 O(n log n)。"]
+      },
+      {
+        "heading": "複習時可以問自己",
+        "paragraphs": ["如果每個符號都使用固定長度編碼，會浪費多少空間？可以將固定長度的總位元數與 Huffman 碼的加權位元數比較。"],
+        "bullets": ["能解釋什麼是前綴碼。", "能手算四個符號的 Huffman Tree 與總編碼位元數。"]
+      }
+    ]
+  },
+  {
+    "id": "virtual-memory",
+    "title": "虛擬記憶體與 Page Table",
+    "category": "作業系統",
+    "categoryKey": "os",
+    "summary": "理解虛擬位址怎麼轉為實體位址，以及 TLB 為什麼能加快存取。",
+    "tags": ["Virtual Memory", "Page Table", "TLB"],
+    "readMinutes": 5,
+    "updated": "2026-11-09",
+    "sections": [
+      {
+        "heading": "虛擬記憶體在做什麼？",
+        "paragraphs": ["程式使用虛擬位址空間，而作業系統與硬體配合，將虛擬頁面（page）對應到實體記憶體中的頁框（frame）。這能讓程式擁有連續的位址視圖，也提供行程間的記憶體隔離。", "不是每個虛擬頁面都必須在 RAM 裡；需求分頁可以在需要時才載入，若存取尚未在記憶體中的有效頁面，可能觸發 page fault。"],
+        "bullets": ["Virtual address：程式看到的位址。", "Page table：記錄虛擬頁面到實體頁框的映射與權限等資訊。", "MMU：協助進行位址轉換與存取檢查的硬體。"]
+      },
+      {
+        "heading": "位址如何被拆開？",
+        "paragraphs": ["假設頁面大小為 8 KiB，因為 8 × 1024 = 8192 = 2^13，所以頁內位移（offset）需要 13 個位元。", "虛擬位址可視為「virtual page number + offset」。轉換時找出對應的實體頁框，並保留相同的 offset。"],
+        "bullets": ["頁面大小決定 offset 位元數。", "Page table 的設計可以是多層、反向或其他形式。", "不同行程一般擁有各自的虛擬位址空間與映射。"]
+      },
+      {
+        "heading": "TLB 為什麼重要？",
+        "paragraphs": ["TLB（Translation Lookaside Buffer）快取近期使用的位址轉換結果。當 TLB hit 時，通常能避免完整的 page table walk，降低位址轉換開銷。", "TLB miss 不必然就是 page fault：前者是轉換快取沒找到，後者涉及分頁映射或有效頁面不在記憶體等情況，兩者不能混為一談。"],
+        "bullets": ["TLB hit：轉換資訊在快取中。", "TLB miss：需要額外查詢位址映射。", "Page fault：需要由作業系統處理的分頁例外。"]
+      }
+    ]
+  },
+  {
+    "id": "lru-page-replacement",
+    "title": "LRU：頁面置換怎麼選？",
+    "category": "作業系統",
+    "categoryKey": "os",
+    "summary": "用簡單的頁框例子理解 Least Recently Used，分清楚缺頁與置換。",
+    "tags": ["LRU", "Page Replacement", "Page Fault"],
+    "readMinutes": 4,
+    "updated": "2026-11-09",
+    "sections": [
+      {
+        "heading": "LRU 的決策規則",
+        "paragraphs": ["LRU 全名為 Least Recently Used。當頁面不在記憶體、需要載入頁面且可用頁框不足時，LRU 會選擇「最久沒有被使用」的頁面作為被替換對象。", "LRU 參考過去的使用紀錄，並非預知未來，因此不一定能得到最少的缺頁次數。"],
+        "bullets": ["Hit：頁面已在記憶體中，更新最近使用時間。", "Miss：若是有效頁面不在記憶體中，觸發 page fault。", "需要置換時：淘汰目前最久未使用的頁面。"]
+      },
+      {
+        "heading": "用三個頁框做例子",
+        "paragraphs": ["假設有 3 個空頁框，依序存取 1、2、3、1、4。前三次把 1、2、3 放入頁框；第四次再存取 1 時為 hit，使 1 成為最近使用的頁面。", "第五次存取 4 時，記憶體已滿；2 是最久沒有使用的頁面，因此會被置換。最後頁框內為 1、3、4（順序不重要）。"],
+        "bullets": ["頁面存取序列：1 → 2 → 3 → 1 → 4。", "在這個例子中，初始頁框為空，缺頁次數是 4。", "FIFO 則根據進入時間淘汰，和 LRU 不同。"]
+      },
+      {
+        "heading": "複習時可以問自己",
+        "paragraphs": ["想一想：如果把序列延長成 1、2、3、1、4、3、5，LRU 最後會淘汰誰？試著每一步都記錄「最近一次存取」的時間。"],
+        "bullets": ["能區分 LRU、FIFO 和 Optimal 的判斷依據。", "能自己畫頁框表，並統計缺頁次數。"]
+      }
+    ]
+  },
+  {
+    "id": "hadamard-basis",
+    "title": "Hadamard Basis 與 |+⟩、|−⟩",
+    "category": "量子計算",
+    "categoryKey": "quantum",
+    "summary": "從 |0⟩、|1⟩ 出發，理解 Hadamard 轉換後的兩個常用量子態。",
+    "tags": ["Qubit", "Hadamard", "Basis"],
+    "readMinutes": 5,
+    "updated": "2026-11-09",
+    "sections": [
+      {
+        "heading": "Computational Basis 是什麼？",
+        "paragraphs": ["一個 qubit 可以用 computational basis 的 |0⟩ 與 |1⟩ 來表示，其中 |0⟩ = [1, 0]ᵀ、|1⟩ = [0, 1]ᵀ。", "一般純態可寫成 α|0⟩ + β|1⟩，其中 α、β 是複數振幅，並須滿足 |α|² + |β|² = 1。"],
+        "bullets": ["|0⟩：對應第一個基底向量。", "|1⟩：對應第二個基底向量。", "振幅平方的絕對值對應在該基底下測量的機率。"]
+      },
+      {
+        "heading": "Hadamard Basis 怎麼來？",
+        "paragraphs": ["Hadamard 閘 H 能將 |0⟩ 轉成 |+⟩，並將 |1⟩ 轉成 |−⟩。", "|+⟩ = (|0⟩ + |1⟩) / √2；|−⟩ = (|0⟩ − |1⟩) / √2。這兩個態彼此正交，構成另一組正交歸一基底。"],
+        "bullets": ["H|0⟩ = |+⟩。", "H|1⟩ = |−⟩。", "H|+⟩ = |0⟩、H|−⟩ = |1⟩，因為 H² = I。"]
+      },
+      {
+        "heading": "複習時可以問自己",
+        "paragraphs": ["如果在 computational basis 測量 |+⟩ 或 |−⟩，得到 0 與 1 的機率各為 1/2。這表示它們在這個測量基底下有相同機率分布，但它們是不同的量子態。"],
+        "bullets": ["能寫出 |+⟩ 與 |−⟩ 的展開式。", "能說明量子態的振幅、機率與測量基底的差別。"]
+      }
+    ]
+  }
+]
